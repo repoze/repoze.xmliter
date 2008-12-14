@@ -19,7 +19,7 @@ class TestIterator(unittest.TestCase):
     def test_html_serialization(self):
         """Test HTML serialization."""
         
-        @decorator.lazy(lxml.html.tostring)
+        @decorator.lazy(parser=lxml.html.tostring)
         def app(a, b, c=u""):
             tree = self.create_tree()
             tree.find('body').attrib['class'] = " ".join((a, b, c))
@@ -45,3 +45,18 @@ class TestIterator(unittest.TestCase):
         self.assertEqual(
             lxml.etree.tostring(result.tree),
             "".join(result))
+
+    def test_decorator(self):
+        class test(object):
+            @decorator.lazy
+            def process(self, tree):
+                return tree
+
+            def __call__(self, tree):
+                return self.process(tree)
+
+        result = test()(self.create_tree())
+        self.assertEqual(
+            lxml.etree.tostring(result.tree),
+            "".join(result))
+

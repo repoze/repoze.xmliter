@@ -1,7 +1,10 @@
 Changelog
 ---------
 
-HEAD
-~~~~
+In next release
+
+ - Refactored decorator to support use with instance methods.
+   [malthe]
+  
 
 

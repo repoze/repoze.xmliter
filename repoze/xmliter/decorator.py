@@ -1,14 +1,14 @@
 import serializer
 
-class lazy(object):
-    def __init__(self, arg=None):
-        self.arg = arg
+def lazy(function=None, parser=None):
+    if function is not None:
+        def decorator(*args, **kwargs):
+            result = function(*args, **kwargs)
+            if parser is None:
+                return serializer.XMLSerializer(result)
+            return serializer.XMLSerializer(result, parser)
+    else:
+        def decorator(function):
+            return lazy(function=function, parser=parser)
     
-    def __call__(self, func, *args, **kwargs):
-        if callable(func) and self.arg is not None:
-            def decorator(*args, **kwargs):
-                result = func(*args, **kwargs)
-                return serializer.XMLSerializer(result, self.arg)
-            return decorator
-        return serializer.XMLSerializer(
-            self.arg(func, *args, **kwargs))
+    return decorator
