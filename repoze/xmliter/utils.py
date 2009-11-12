@@ -1,7 +1,7 @@
 from lxml import etree, html
 from repoze.xmliter.serializer import XMLSerializer
 
-def getXMLSerializer(iterable, parser=etree.XMLParser, serializer=etree.tostring, pretty_print=False):
+def getXMLSerializer(iterable, parser=etree.XMLParser, serializer=etree.tostring, pretty_print=False, encoding='utf-8'):
     """Turn the given iterable into an XMLSerializer. If it is already an
     XMLSerializer, return as-is. Otherwise, parse the input using with the
     given parser in feed-parser mode and initalize an XMLSerializer with the
@@ -10,14 +10,14 @@ def getXMLSerializer(iterable, parser=etree.XMLParser, serializer=etree.tostring
     if isinstance(iterable, XMLSerializer):
         return iterable
     
-    p = parser()
+    p = parser(encoding=encoding)
     for chunk in iterable:
         p.feed(chunk)
     root = p.close()
     
     return XMLSerializer(root.getroottree(), serializer, pretty_print)
 
-def getHTMLSerializer(iterable, pretty_print=True):
+def getHTMLSerializer(iterable, pretty_print=True, encoding='utf-8'):
     """Convenience method to create an XMLSerializer instance using the HTML
     parser and string serialization. Pretty print is enabled by default.
     """
@@ -25,5 +25,6 @@ def getHTMLSerializer(iterable, pretty_print=True):
                 iterable,
                 parser=html.HTMLParser,
                 serializer=html.tostring,
-                pretty_print=pretty_print
+                pretty_print=pretty_print,
+                encoding=encoding,
             )
