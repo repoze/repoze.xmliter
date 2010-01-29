@@ -19,12 +19,17 @@ def getXMLSerializer(iterable, parser=etree.XMLParser, serializer=etree.tostring
 
 def getHTMLSerializer(iterable, pretty_print=True, encoding='utf-8'):
     """Convenience method to create an XMLSerializer instance using the HTML
-    parser and string serialization. Pretty print is enabled by default.
+    parser and string serialization. Pretty print is enabled by default. If
+    the doctype is XHTML or XHTML transitional, use the XML serializer.
     """
-    return getXMLSerializer(
-                iterable,
-                parser=html.HTMLParser,
-                serializer=html.tostring,
-                pretty_print=pretty_print,
-                encoding=encoding,
-            )
+    serializer = getXMLSerializer(
+                        iterable,
+                        parser=html.HTMLParser,
+                        serializer=html.tostring,
+                        pretty_print=pretty_print,
+                        encoding=encoding,
+                    )
+    if serializer.tree.docinfo.doctype and 'XHTML' in serializer.tree.docinfo.doctype:
+        serializer.serializer = etree.tostring
+    
+    return serializer

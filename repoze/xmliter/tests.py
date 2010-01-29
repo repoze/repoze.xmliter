@@ -12,14 +12,15 @@ class TestIterator(unittest.TestCase):
     def create_tree(self):
         return lxml.html.fromstring(''.join(self.create_iterable()))
     
-    def create_iterable(self):
-        return [
+    def create_iterable(self, preamble="", body=""):
+        return [preamble,
             "<html>",
                 "<head>",
                     "<title>My homepage</title>",
                 "</head>",
                 "<body>",
                     "Hello, world!",
+                    body,
                 "</body>"
             "</html>",
         ]
@@ -80,14 +81,25 @@ class TestIterator(unittest.TestCase):
             "".join(t2))
 
     def test_getHTMLSerializer(self):
-        t = utils.getHTMLSerializer(self.create_iterable())
+        t = utils.getHTMLSerializer(self.create_iterable(body='<img src="foo.png" />'))
         self.failUnless(isinstance(t, serializer.XMLSerializer))
         
         t2 = utils.getXMLSerializer(t)
         self.failUnless(t2 is t)
         
         self.assertEqual(
-            '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">\n<html>\n<head><title>My homepage</title></head>\n<body>Hello, world!</body>\n</html>\n',
+            '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">\n<html>\n<head><title>My homepage</title></head>\n<body>Hello, world!<img src="foo.png">\n</body>\n</html>\n',
+            "".join(t2))
+    
+    def test_getHTMLSerializer_doctype_xhtml_serializes_to_xhtml(self):
+        t = utils.getHTMLSerializer(self.create_iterable(preamble='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n', body='<img src="foo.png" />'))
+        self.failUnless(isinstance(t, serializer.XMLSerializer))
+        
+        t2 = utils.getXMLSerializer(t)
+        self.failUnless(t2 is t)
+        
+        self.assertEqual(
+            '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=ASCII" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, world!<img src="foo.png" /></body>\n</html>\n',
             "".join(t2))
 
 def test_suite():
