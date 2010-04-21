@@ -1,18 +1,7 @@
 Changelog
 ---------
 
-In next release
+0.1 - 2010-04-21 
+----------------
 
- - Added getXMLSerializer() and getHTMLSerializer() method to make it easier
-   to obtain an XMLSerializer iterable conditionally in code.
-   [optilude]
- 
- - Renamed the 'parser' argument to the @lazy decorator to 'serializer', since
-   that's what it is: the function that turns a tree into a string.
-   [optilude]
-
- - Refactored decorator to support use with instance methods.
-   [malthe]
-  
-
-
+* Initial release
