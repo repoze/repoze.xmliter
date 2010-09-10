@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+0.2 - unreleased
+----------------
+
+* Turn off pretty printing by default for HTML to avoid affecting rendering on
+  the browser.
+  [Laurence]
+
 0.1 - 2010-04-21 
 ----------------
 
