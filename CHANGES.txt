@@ -4,6 +4,9 @@ Changelog
 0.2 - unreleased
 ----------------
 
+* Defer to xsl:output settings when serializing an XSLResultTree.
+  [Laurence]
+
 * Turn off pretty printing by default for HTML to avoid affecting rendering on
   the browser.
   [Laurence]
