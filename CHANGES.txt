@@ -4,10 +4,6 @@ Changelog
 0.2 - unreleased
 ----------------
 
-* Don't feed empty strings in getXMLSerializer, with some versions of libxml2
-  this seems to cause problems.
-  [Laurence]
-
 * Defer to xsl:output settings when serializing an XSLResultTree.
   [Laurence]
 

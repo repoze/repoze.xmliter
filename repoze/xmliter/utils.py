@@ -12,8 +12,7 @@ def getXMLSerializer(iterable, parser=etree.XMLParser, serializer=etree.tostring
     
     p = parser(encoding=encoding)
     for chunk in iterable:
-        if chunk:
-            p.feed(chunk)
+        p.feed(chunk)
     root = p.close()
     
     return XMLSerializer(root.getroottree(), serializer, pretty_print)
