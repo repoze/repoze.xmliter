@@ -4,6 +4,9 @@ Changelog
 0.2 - unreleased
 ----------------
 
+* Use document encoding by default. (This fixes test failure on Ubuntu 10.04.)
+  [Laurence]
+
 * Defer to xsl:output settings when serializing an XSLResultTree.
   [Laurence]
 
