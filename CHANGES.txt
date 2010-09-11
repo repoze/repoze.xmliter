@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-0.2 - unreleased
+0.2 - 2010-09-11
 ----------------
 
 * Use document encoding by default. (This fixes test failure on Ubuntu 10.04.)
