@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+0.3 - 2011-06-03
+----------------
+
+* Add doctype option to replace doctype on serialization.
+  [Laurence]
+
 0.2 - 2010-09-11
 ----------------
 
