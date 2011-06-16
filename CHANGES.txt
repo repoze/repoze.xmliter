@@ -4,6 +4,9 @@ Changelog
 0.4 - unreleased
 ----------------
 
+* Ensure trailing space is removed when replacing doctype with empty string.
+  [Laurence]
+
 0.3 - 2011-06-03
 ----------------
 

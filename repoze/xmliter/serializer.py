@@ -1,7 +1,7 @@
 import lxml.etree
 import re
 
-doctype_re = re.compile("<!DOCTYPE\s[^>]+>", re.MULTILINE)
+doctype_re = re.compile(r"^<!DOCTYPE\s[^>]+>\s*", re.MULTILINE)
 
 class XMLSerializer(object):
     
@@ -11,6 +11,8 @@ class XMLSerializer(object):
         self.tree = tree
         self.serializer = serializer
         self.pretty_print = pretty_print
+        if doctype and not doctype.endswith('\n'):
+            doctype = doctype + '\n'
         self.doctype = doctype
 
     def serialize(self, encoding=None):
