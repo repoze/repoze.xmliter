@@ -80,6 +80,11 @@ class TestIterator(unittest.TestCase):
             "<html><head><title>My homepage</title></head><body>Hello, world!</body></html>",
             "".join(t2))
 
+    def test_length(self):
+        t = utils.getXMLSerializer(self.create_iterable())
+        self.failUnless(len(t) == 1)
+        self.failUnless(len(list(t)) == 1)
+
     def test_getHTMLSerializer(self):
         t = utils.getHTMLSerializer(self.create_iterable(body='<img src="foo.png" />'), pretty_print=True)
         self.failUnless(isinstance(t, serializer.XMLSerializer))
@@ -130,6 +135,17 @@ class TestIterator(unittest.TestCase):
         
         self.assertEqual(
             '<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=ASCII" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, world!<img src="foo.png" /></body>\n</html>\n',
+            "".join(t2))
+
+    def test_replace_doctype_blank(self):
+        t = utils.getHTMLSerializer(self.create_iterable(preamble='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n', body='<img src="foo.png" />'), pretty_print=True, doctype="")
+        self.failUnless(isinstance(t, serializer.XMLSerializer))
+
+        t2 = utils.getXMLSerializer(t)
+        self.failUnless(t2 is t)
+        
+        self.assertEqual(
+            '<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=ASCII" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, world!<img src="foo.png" /></body>\n</html>\n',
             "".join(t2))
 
 def test_suite():

@@ -1,6 +1,21 @@
 Changelog
 ---------
 
+0.5 - 2012-01-25
+----------------
+
+* Add __len__ to serializer to help WSGI servers.
+  [Laurence]
+
+* Serializer should iter the entire string in one go.
+  [Laurence]
+
+0.4 - 2011-06-16
+----------------
+
+* Ensure trailing space is removed when replacing doctype with empty string.
+  [Laurence]
+
 0.3 - 2011-06-03
 ----------------
 
