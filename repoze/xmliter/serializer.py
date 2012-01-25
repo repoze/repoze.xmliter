@@ -31,10 +31,13 @@ class XMLSerializer(object):
         return result
 
     def __iter__(self):
-        return iter(str(self),)
+        return iter((str(self),))
 
     def __str__(self):
         return self.serialize()
 
     def __unicode__(self):
         return self.serialize(unicode)
+
+    def __len__(self):
+        return 1

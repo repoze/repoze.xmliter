@@ -4,6 +4,12 @@ Changelog
 0.5 - unreleased
 ----------------
 
+* Add __len__ to serializer to help WSGI servers.
+  [Laurence]
+
+* Serializer should iter the entire string in one go.
+  [Laurence]
+
 0.4 - 2011-06-16
 ----------------
 

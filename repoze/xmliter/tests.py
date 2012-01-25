@@ -80,6 +80,11 @@ class TestIterator(unittest.TestCase):
             "<html><head><title>My homepage</title></head><body>Hello, world!</body></html>",
             "".join(t2))
 
+    def test_length(self):
+        t = utils.getXMLSerializer(self.create_iterable())
+        self.failUnless(len(t) == 1)
+        self.failUnless(len(list(t)) == 1)
+
     def test_getHTMLSerializer(self):
         t = utils.getHTMLSerializer(self.create_iterable(body='<img src="foo.png" />'), pretty_print=True)
         self.failUnless(isinstance(t, serializer.XMLSerializer))
