@@ -38,7 +38,7 @@ class TestIterator(unittest.TestCase):
 
         self.assertEqual(
             lxml.html.tostring(result.tree),
-            "".join(result))
+            b"".join(list(result)))
 
     def test_xml_serialization(self):
         """Test XML serialization."""
@@ -53,7 +53,7 @@ class TestIterator(unittest.TestCase):
 
         self.assertEqual(
             lxml.etree.tostring(result.tree),
-            "".join(result))
+            b"".join(list(result)))
 
     def test_decorator_instancemethod(self):
         class test(object):
@@ -67,7 +67,7 @@ class TestIterator(unittest.TestCase):
         result = test()(self.create_tree())
         self.assertEqual(
             lxml.etree.tostring(result.tree),
-            "".join(result))
+            b"".join(list(result)))
     
     def test_getXMLSerializer(self):
         t = utils.getXMLSerializer(self.create_iterable())
@@ -77,8 +77,8 @@ class TestIterator(unittest.TestCase):
         self.failUnless(t2 is t)
         
         self.assertEqual(
-            "<html><head><title>My homepage</title></head><body>Hello, world!</body></html>",
-            "".join(t2))
+            b"<html><head><title>My homepage</title></head><body>Hello, world!</body></html>",
+            b"".join(list(t2)))
 
     def test_length(self):
         t = utils.getXMLSerializer(self.create_iterable())
@@ -93,8 +93,8 @@ class TestIterator(unittest.TestCase):
         self.failUnless(t2 is t)
         
         self.assertEqual(
-            '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">\n<html>\n<head><title>My homepage</title></head>\n<body>Hello, world!<img src="foo.png">\n</body>\n</html>\n',
-            "".join(t2))
+            b'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">\n<html>\n<head><title>My homepage</title></head>\n<body>Hello, world!<img src="foo.png">\n</body>\n</html>\n',
+            b"".join(list(t2)))
     
     def test_getHTMLSerializer_doctype_xhtml_serializes_to_xhtml(self):
         t = utils.getHTMLSerializer(self.create_iterable(preamble='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n', body='<img src="foo.png" />'), pretty_print=True)
@@ -104,8 +104,8 @@ class TestIterator(unittest.TestCase):
         self.failUnless(t2 is t)
         
         self.assertEqual(
-            '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=ASCII" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, world!<img src="foo.png" /></body>\n</html>\n',
-            "".join(t2))
+            b'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=ASCII" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, world!<img src="foo.png" /></body>\n</html>\n',
+            b"".join(list(t2)))
 
     def test_xsl(self):
         t = utils.getHTMLSerializer(self.create_iterable(body='<br>'))
@@ -134,8 +134,8 @@ class TestIterator(unittest.TestCase):
         self.failUnless(t2 is t)
         
         self.assertEqual(
-            '<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=ASCII" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, world!<img src="foo.png" /></body>\n</html>\n',
-            "".join(t2))
+            b'<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=ASCII" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, world!<img src="foo.png" /></body>\n</html>\n',
+            b"".join(list(t2)))
 
     def test_replace_doctype_blank(self):
         t = utils.getHTMLSerializer(self.create_iterable(preamble='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n', body='<img src="foo.png" />'), pretty_print=True, doctype="")
@@ -145,8 +145,8 @@ class TestIterator(unittest.TestCase):
         self.failUnless(t2 is t)
         
         self.assertEqual(
-            '<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=ASCII" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, world!<img src="foo.png" /></body>\n</html>\n',
-            "".join(t2))
+            b'<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=ASCII" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, world!<img src="foo.png" /></body>\n</html>\n',
+            b"".join(list(t2)))
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

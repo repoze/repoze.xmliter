@@ -1,1 +1,1 @@
-from decorator import lazy
+from repoze.xmliter.decorator import lazy

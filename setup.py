@@ -15,10 +15,6 @@
 __version__ = '0.5'
 
 import os
-
-from ez_setup import use_setuptools
-use_setuptools()
-
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -33,6 +29,11 @@ setup(name='repoze.xmliter',
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
@@ -49,6 +50,7 @@ setup(name='repoze.xmliter',
       install_requires=[
            'setuptools',
            'lxml >= 2.1.1',
+           'future',
            ],
       test_suite="repoze.xmliter.tests",
       )
