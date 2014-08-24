@@ -26,7 +26,7 @@ class XMLSerializer(object):
             if encoding is unicode:
                 result = unicode(self.tree)
             else:
-                result = str(self.tree)
+                result = bytes(self.tree)
         else:
             result = self.serializer(self.tree, encoding=encoding, pretty_print=self.pretty_print)
         if self.doctype is not None:
