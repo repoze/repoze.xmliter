@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+0.6 - 2014-09-21
+----------------
+
+* Python 3 compatibility
+  [Lennart Regebro]
+
 0.5 - 2012-01-25
 ----------------
 
