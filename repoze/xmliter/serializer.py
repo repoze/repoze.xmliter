@@ -41,14 +41,16 @@ class XMLSerializer(object):
     def __iter__(self):
         return iter((bytes(self),))
 
-    def __str__(self):
-        return self.serialize()
-
     def __unicode__(self):
         return self.serialize(unicode)
     
     def __bytes__(self):
         return self.serialize()
+
+    if bytes is str:
+        __str__ = __bytes__
+    else:
+        __str__ = __unicode__
 
     def __len__(self):
         return 1
