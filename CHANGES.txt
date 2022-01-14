@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+0.6.1 (unreleased)
+------------------
+
+* Fixed tests with lxml 4.7.1 or higher.
+  Fixes `issue 8 <https://github.com/repoze/repoze.xmliter/issues/8>`_.
+  [maurits]
+
 0.6 - 2014-09-21
 ----------------
 
@@ -41,7 +48,7 @@ Changelog
   the browser.
   [Laurence]
 
-0.1 - 2010-04-21 
+0.1 - 2010-04-21
 ----------------
 
 * Initial release
