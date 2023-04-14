@@ -4,9 +4,17 @@ Changelog
 1.0b1 (unreleased)
 ------------------
 
+
+* Removed unused ``future`` dependency.
+  Fixes `issue 10 <https://github.com/repoze/repoze.xmliter/issues/10>`_.
+  [maurits]
+
 * Drop support for Python 2.6, 2.7, 3.3, and 3.4.
+  [tseaver, mborch]
 
 * Add support for Python 3.7, 3.8, 3.9, 3.10, and 3.11.
+  [tseaver, mborch]
+
 
 0.6.1 (2022-01-14)
 ------------------
