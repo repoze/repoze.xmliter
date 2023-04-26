@@ -186,6 +186,3 @@ class TestIterator(unittest.TestCase):
         self.assertEqual(
             u'<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, wörld!<img src="foo.png" /></body>\n</html>',
             u"".join(t2.serialize(encoding=unicode)).strip())
-
-def test_suite():
-    return unittest.defaultTestLoader.loadTestsFromName(__name__)
