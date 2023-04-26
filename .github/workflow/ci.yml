@@ -39,7 +39,7 @@ jobs:
         tox -e py${{ matrix.python }}
 
     - name: Upload coverage results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: coverage-artifacts
         path: .coverage.py${{ matrix.python }}
