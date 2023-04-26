@@ -48,10 +48,10 @@ setup(name='repoze.xmliter',
       include_package_data=True,
       namespace_packages=['repoze'],
       zip_safe=False,
+      python_requires='>=3.7',
       install_requires=[
            'setuptools',
            'lxml >= 2.1.1',
            ],
-      test_suite="repoze.xmliter.tests",
       )
 
