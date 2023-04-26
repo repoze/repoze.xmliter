@@ -12,7 +12,7 @@
 #
 ##############################################################################
 
-__version__ = '0.6.1'
+__version__ = '1.0b1.dev0'
 
 import os
 from setuptools import setup, find_packages
@@ -51,7 +51,6 @@ setup(name='repoze.xmliter',
       install_requires=[
            'setuptools',
            'lxml >= 2.1.1',
-           'future',
            ],
       test_suite="repoze.xmliter.tests",
       )
