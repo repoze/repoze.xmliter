@@ -156,6 +156,7 @@ class TestIterator(unittest.TestCase):
             '''))
         t.tree = transform(t.tree)
         self.assertTrue('<br />' in str(t))
+        self.assertTrue(b'<br />' in bytes(t))
 
     def test_replace_doctype(self):
         t = utils.getHTMLSerializer(self.create_iterable(preamble='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n', body='<img src="foo.png" />'), pretty_print=True, doctype="<!DOCTYPE html>")
