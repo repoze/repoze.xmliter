@@ -8,9 +8,6 @@ from repoze.xmliter import utils
 import lxml.html
 import lxml.etree
 
-import sys
-if sys.version_info > (3,):
-    unicode = str
 
 class TestIterator(unittest.TestCase):
 
@@ -34,7 +31,7 @@ class TestIterator(unittest.TestCase):
         """Test HTML serialization."""
 
         @decorator.lazy(serializer=lxml.html.tostring)
-        def app(a, b, c=u""):
+        def app(a, b, c=""):
             tree = self.create_tree()
             tree.find('body').attrib['class'] = " ".join((a, b, c))
             return tree
@@ -48,13 +45,13 @@ class TestIterator(unittest.TestCase):
         # With Unicode encoding:
         self.assertEqual(
             lxml.html.tostring(result.tree, encoding='unicode'),
-            u"".join(result.serialize(encoding=unicode)))
+            "".join(result.serialize(encoding=str)))
 
     def test_xml_serialization(self):
         """Test XML serialization."""
 
         @decorator.lazy
-        def app(a, b, c=u""):
+        def app(a, b, c=""):
             tree = self.create_tree()
             tree.find('body').attrib['class'] = " ".join((a, b, c))
             return tree
@@ -68,7 +65,7 @@ class TestIterator(unittest.TestCase):
         # With Unicode encoding:
         self.assertEqual(
             lxml.etree.tostring(result.tree, encoding='unicode'),
-            u"".join(result.serialize(encoding=unicode)))
+            "".join(result.serialize(encoding=str)))
 
     def test_decorator_instancemethod(self):
         class test(object):
@@ -86,7 +83,7 @@ class TestIterator(unittest.TestCase):
 
         self.assertEqual(
             lxml.etree.tostring(result.tree, encoding='unicode'),
-            u"".join(result.serialize(encoding=unicode)))
+            "".join(result.serialize(encoding=str)))
 
     def test_getXMLSerializer(self):
         t = utils.getXMLSerializer(self.create_iterable())
@@ -100,8 +97,8 @@ class TestIterator(unittest.TestCase):
             b"".join(t2))
 
         self.assertEqual(
-            u"<html><head><title>My homepage</title></head><body>Hello, wörld!</body></html>",
-            u"".join(t2.serialize(encoding=unicode)))
+            "<html><head><title>My homepage</title></head><body>Hello, wörld!</body></html>",
+            "".join(t2.serialize(encoding=str)))
 
     def test_length(self):
         t = utils.getXMLSerializer(self.create_iterable())
@@ -120,8 +117,8 @@ class TestIterator(unittest.TestCase):
             b"".join(t2).strip())
 
         self.assertEqual(
-            u'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">\n<html>\n<head><title>My homepage</title></head>\n<body>Hello, wörld!<img src="foo.png">\n</body>\n</html>',
-            u"".join(t2.serialize(encoding=unicode)).strip())
+            '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">\n<html>\n<head><title>My homepage</title></head>\n<body>Hello, wörld!<img src="foo.png">\n</body>\n</html>',
+            "".join(t2.serialize(encoding=str)).strip())
 
     def test_getHTMLSerializer_doctype_xhtml_serializes_to_xhtml(self):
         t = utils.getHTMLSerializer(self.create_iterable(preamble='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n', body='<img src="foo.png" />'), pretty_print=True)
@@ -135,8 +132,8 @@ class TestIterator(unittest.TestCase):
             b"".join(t2).strip())
 
         self.assertEqual(
-            u'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, wörld!<img src="foo.png" /></body>\n</html>',
-            u"".join(t2.serialize(encoding=unicode)).strip())
+            '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, wörld!<img src="foo.png" /></body>\n</html>',
+            "".join(t2.serialize(encoding=str)).strip())
 
     def test_xsl(self):
         t = utils.getHTMLSerializer(self.create_iterable(body='<br>'))
@@ -170,8 +167,8 @@ class TestIterator(unittest.TestCase):
             b"".join(t2).strip())
 
         self.assertEqual(
-            u'<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, wörld!<img src="foo.png" /></body>\n</html>',
-            u"".join(t2.serialize(encoding=unicode)).strip())
+            '<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, wörld!<img src="foo.png" /></body>\n</html>',
+            "".join(t2.serialize(encoding=str)).strip())
 
     def test_replace_doctype_blank(self):
         t = utils.getHTMLSerializer(self.create_iterable(preamble='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n', body='<img src="foo.png" />'), pretty_print=True, doctype="")
@@ -185,5 +182,5 @@ class TestIterator(unittest.TestCase):
             b"".join(t2).strip())
 
         self.assertEqual(
-            u'<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, wörld!<img src="foo.png" /></body>\n</html>',
-            u"".join(t2.serialize(encoding=unicode)).strip())
+            '<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, wörld!<img src="foo.png" /></body>\n</html>',
+            "".join(t2.serialize(encoding=str)).strip())
