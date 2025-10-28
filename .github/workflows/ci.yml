@@ -47,8 +47,10 @@ jobs:
     - name: Upload coverage results
       uses: actions/upload-artifact@v5
       with:
-        name: coverage-artifacts
+        name: coverage-artifacts-${{ matrix.python }}
         path: .coverage.py${{ matrix.python }}
+        include-hidden-files: true
+        if-no-files-found: error
 
   report-coverage:
     name: cover
@@ -74,8 +76,9 @@ jobs:
     - name: Download coverage results
       uses: actions/download-artifact@v6
       with:
-        name: coverage-artifacts
+        pattern: coverage-artifacts-*
         path: .coverage-results/
+        merge-multiple: true
 
     - name: Report coverage results
       run: |
