@@ -4,8 +4,12 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
-* Test on Python 3.7-3.14.
+* Test on Python 3.8-3.14.
   [maurits]
+
+* Drop support for Python 3.7: it is almost two years out of support and cannot easily be tested.
+  [maurits]
+
 
 1.0b1 (2024-01-31)
 ------------------
