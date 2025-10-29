@@ -4,6 +4,10 @@ on:
   pull_request:
     branches:
       - master
+  push:
+    branches:
+      - master
+  workflow_dispatch:
 
 
 jobs:
@@ -14,18 +18,20 @@ jobs:
     strategy:
       matrix:
         python:
-          - "3.7"
           - "3.8"
           - "3.9"
           - "3.10"
           - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v5
 
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python }}
 
@@ -39,10 +45,12 @@ jobs:
         tox -e py${{ matrix.python }}
 
     - name: Upload coverage results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v5
       with:
-        name: coverage-artifacts
+        name: coverage-artifacts-${{ matrix.python }}
         path: .coverage.py${{ matrix.python }}
+        include-hidden-files: true
+        if-no-files-found: error
 
   report-coverage:
     name: cover
@@ -53,10 +61,10 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v5
 
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: "3.10"
 
@@ -66,10 +74,11 @@ jobs:
         python -m pip install coverage
 
     - name: Download coverage results
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v6
       with:
-        name: coverage-artifacts
+        pattern: coverage-artifacts-*
         path: .coverage-results/
+        merge-multiple: true
 
     - name: Report coverage results
       run: |
