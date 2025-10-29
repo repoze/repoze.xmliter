@@ -12,10 +12,10 @@
 #
 ##############################################################################
 
-__version__ = '1.0'
+__version__ = '2.0.dev0'
 
 import os
-from setuptools import setup, find_packages
+from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
@@ -46,9 +46,7 @@ setup(name='repoze.xmliter',
       author_email="repoze-dev@lists.repoze.org",
       url="https://repoze.org",
       license="BSD-derived (https://repoze.org/LICENSE.txt)",
-      packages=find_packages(),
       include_package_data=True,
-      namespace_packages=['repoze'],
       zip_safe=False,
       python_requires='>=3.8',
       install_requires=[
