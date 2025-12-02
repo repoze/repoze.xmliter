@@ -4,7 +4,9 @@ Changelog
 2.0a2 (unreleased)
 ------------------
 
-* nothing yet
+* Let ``getXMLSerializer`` raise an ``XMLSyntaxError`` when passed an empty iterable.
+  Then the result with ``lxml`` 6 is the same as it was with ``lxml`` 5, instead of throwing an ``AttributeError``.
+  [maurits]
 
 
 2.0a1 (2025-12-22)

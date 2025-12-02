@@ -15,7 +15,16 @@ def getXMLSerializer(iterable, parser=etree.XMLParser, serializer=etree.tostring
     for chunk in iterable:
         p.feed(chunk)
     root = p.close()
-    
+    if root is None:
+        # With lxml 5, if you pass an iterable with empty content,
+        # so [b''], `p.feed(chunk)` would raise an XMLSyntaxError.
+        # With lxml 6, this is not the case.  The resulting root is None.
+        # This obviously gives an error when we call root.getroottree().
+        # Here we choose to explicitly raise the XMLSyntaxError.
+        # We must pass 'message, code, line, column, filename=None'
+        # Alternatively, we could return None.
+        raise etree.XMLSyntaxError("Empty iterable", None, 0, 0)
+
     return XMLSerializer(root.getroottree(), serializer, pretty_print, doctype=doctype)
 
 def getHTMLSerializer(iterable, pretty_print=False, encoding=None, doctype=None):
