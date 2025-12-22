@@ -100,6 +100,10 @@ class TestIterator(unittest.TestCase):
             "<html><head><title>My homepage</title></head><body>Hello, wörld!</body></html>",
             "".join(t2.serialize(encoding=str)))
 
+    def test_getXMLSerializer_empty(self):
+        with self.assertRaises(lxml.etree.XMLSyntaxError):
+            utils.getXMLSerializer([b""])
+
     def test_length(self):
         t = utils.getXMLSerializer(self.create_iterable())
         self.assertTrue(len(t) == 1)
@@ -134,6 +138,10 @@ class TestIterator(unittest.TestCase):
         self.assertEqual(
             '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml">\n  <head>\n    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />\n    <title>My homepage</title>\n  </head>\n  <body>Hello, wörld!<img src="foo.png" /></body>\n</html>',
             "".join(t2.serialize(encoding=str)).strip())
+
+    def test_getHTMLSerializer_empty(self):
+        with self.assertRaises(lxml.etree.XMLSyntaxError):
+            utils.getHTMLSerializer([b""])
 
     def test_xsl(self):
         t = utils.getHTMLSerializer(self.create_iterable(body='<br>'))
