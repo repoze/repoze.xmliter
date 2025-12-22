@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a2 (unreleased)
+2.0a2 (2025-12-22)
 ------------------
 
 * Let ``getXMLSerializer`` raise an ``XMLSyntaxError`` when passed an empty iterable.
