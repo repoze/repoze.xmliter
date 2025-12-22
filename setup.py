@@ -12,7 +12,7 @@
 #
 ##############################################################################
 
-__version__ = '2.0a2'
+__version__ = '2.0a3.dev0'
 
 import os
 from setuptools import setup
