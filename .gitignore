@@ -5,4 +5,5 @@ dist/
 __pycache__/
 .tox/
 .coverage
+.coverage.py*
 coverage.xml
